@@ -34,6 +34,7 @@ class Chef
         @provider = Chef::Provider::CookbookFile
         @resource_name = :cookbook_file
         @action = "create"
+        @local = false
         @source = ::File.basename(name)
         @cookbook = nil
         @provider = Chef::Provider::CookbookFile
@@ -47,6 +48,13 @@ class Chef
         set_or_return(:cookbook, cookbook_name, :kind_of => String)
       end
 
+      def local(args=nil)
+        set_or_return(
+          :local,
+          args,
+          :kind_of => [ TrueClass, FalseClass ]
+        )
+      end
     end
   end
 end

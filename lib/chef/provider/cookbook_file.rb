@@ -54,8 +54,12 @@ class Chef
 
       def file_cache_location
         @file_cache_location ||= begin
-          cookbook = run_context.cookbook_collection[resource_cookbook]
-          cookbook.preferred_filename_on_disk_location(node, :files, @new_resource.source, @new_resource.path)
+          if @new_resource.local
+            @new_resource.source
+          else
+            cookbook = run_context.cookbook_collection[resource_cookbook]
+            cookbook.preferred_filename_on_disk_location(node, :files, @new_resource.source, @new_resource.path)
+          end
         end
       end
 
