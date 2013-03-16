@@ -62,6 +62,7 @@ class Chef
               Chef::Log.info "#{@new_resource} updated"
               raw_file.close!
               save_fileinfo(raw_file_source)
+              update_new_file_state
             end
             # whyrun mode cleanup - the temp file will never be used,
             # so close/unlink it here.
@@ -71,7 +72,6 @@ class Chef
           end
         end
         set_all_access_controls
-        update_new_file_state
       end
 
       def current_resource_matches_target_checksum?
